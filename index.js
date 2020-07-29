@@ -4,6 +4,9 @@ const endPoint = "http://localhost:3000/api/v1/sylabuses"
 document.addEventListener('DOMContentLoaded', () => {
 	// console.log('loaded')
 	getSyllabi()
+
+	const createSyllabusForm = document.querySelector("#create-syllabus-form")
+	createSyllabusForm.addEventListener("submit", (e) => createFormHandler(e))
 })
 
 function getSyllabi() {
@@ -26,6 +29,11 @@ function getSyllabi() {
 // 	  .catch(errors) //why was this erroring? 
 }
 
+function createFormHandler(e) {
+	e.preventDefault()
+	console.log(e)
+
+}
 // get the data, then get access into the data 
 // catch get the errors from the controller 
 //can refactor the markup code into a render function 
