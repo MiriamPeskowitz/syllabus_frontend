@@ -23,8 +23,9 @@ function getSyllabi() {
           document.querySelector('#syllabus-container').innerHTML += syllabusMarkup
       	})
 	  })
-	  .catch(errors)
+// 	  .catch(errors) //why was this erroring? 
 }
 
 // get the data, then get access into the data 
 // catch get the errors from the controller 
+//can refactor the markup code into a render function 
