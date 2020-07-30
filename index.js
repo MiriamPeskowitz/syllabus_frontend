@@ -14,19 +14,10 @@ function getSyllabi() {
 	  .then(response => response.json())
 	  .then(syllabi => {
 	  	syllabi.data.forEach(syllabus => {
-	  		const syllabusMarkup = `
-          		<div data-id=${syllabus.id}>
-		            <img src=${syllabus.attributes.image_url} height="200" width="250">
-		            <h3>${syllabus.attributes.title}</h3>
-		            <p>${syllabus.attributes.category.name}</p>
-		            <button data-id=${syllabus.id}>edit</button>
-		          </div>
-          <br><br>`;
-
-          document.querySelector('#syllabus-container').innerHTML += syllabusMarkup
+	 		render(syllabus)
       	})
 	  })
-// 	  .catch(errors) //why was this erroring? 
+	  .catch(error => console.log(error)) //why was this erroring? 
 }
 
 function createFormHandler(e) {
@@ -58,17 +49,22 @@ function postSyllabus(title, description, image_url, category_id) {
 	    console.log("new data: ", syllabus);
 	    const syllabusData = syllabus.data
 	    // render JSON response
-	    const syllabusMarkup = `
-	    <div data-id=${syllabus.id}>
-	      <img src=${syllabusData.attributes.image_url} height="200" width="250">
-	      <h3>${syllabusData.attributes.title}</h3>
-	      <p>${syllabusData.attributes.category.name}</p>
-	      <button data-id=${syllabusData.id}>edit</button>
-	    </div>
-	    <br><br>`;
+	   render(syllabusData)
+  	})
+	.catch(error => console.log(error))
+}
 
-    document.querySelector('#syllabus-container').innerHTML += syllabusMarkup;
-  })
+function render(syllabus) {
+  const syllabusMarkup = `
+          <div data-id=${syllabus.attributes.id}>
+            <img src=${syllabus.attributes.image_url} height="200" width="250">
+            <h3>${syllabus.attributes.title}</h3>
+            <p>${syllabus.attributes.category.name}</p>
+            <button data-id=${syllabus.id}>edit</button>
+          </div>
+          <br><br>`;
+
+  document.querySelector('#syllabus-container').innerHTML += syllabusMarkup;
 }
 // get the data, then get access into the data 
 // catch get the errors from the controller 
