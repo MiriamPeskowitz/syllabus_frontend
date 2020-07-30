@@ -15,7 +15,7 @@ function getSyllabi() {
 	  .then(syllabi => {
 	  	syllabi.data.forEach(syllabus => {
 			debugger
-	  		let newSyllabus = new Syllabus(syllabus)
+	  		let newSyllabus = new Syllabus(syllabus, syllabus.attributes)
 	 		render(newSyllabus)
       	})
 	  })
