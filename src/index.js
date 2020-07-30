@@ -14,7 +14,9 @@ function getSyllabi() {
 	  .then(response => response.json())
 	  .then(syllabi => {
 	  	syllabi.data.forEach(syllabus => {
-	 		render(syllabus)
+			debugger
+	  		let newSyllabus = new Syllabus(syllabus)
+	 		render(newSyllabus)
       	})
 	  })
 	  .catch(error => console.log(error)) //why was this erroring? 
