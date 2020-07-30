@@ -55,14 +55,14 @@ function postSyllabus(title, description, image_url, category_id) {
 	  })
 	  .then(response => response.json())
 	  .then(syllabus => {
-	    console.log(syllabus);
-	    const syllabusData = syllabus.data
+	    console.log("new data: ", syllabus);
+	    const syllabusData = syllabus.data.attributes
 	    // render JSON response
 	    const syllabusMarkup = `
 	    <div data-id=${syllabus.id}>
-	      <img src=${syllabusData.attributes.image_url} height="200" width="250">
-	      <h3>${syllabusData.attributes.title}</h3>
-	      <p>${syllabusData.attributes.category.name}</p>
+	      <img src=${syllabusData.image_url} height="200" width="250">
+	      <h3>${syllabusData.title}</h3>
+	      <p>${syllabusData.category.name}</p>
 	      <button data-id=${syllabusData.id}>edit</button>
 	    </div>
 	    <br><br>`;
