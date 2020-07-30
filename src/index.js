@@ -14,9 +14,11 @@ function getSyllabi() {
 	  .then(response => response.json())
 	  .then(syllabi => {
 	  	syllabi.data.forEach(syllabus => {
-			debugger
+
 	  		let newSyllabus = new Syllabus(syllabus, syllabus.attributes)
-	 		render(newSyllabus)
+	 		// render(newSyllabus)
+	 		document.querySelector('#syllabus-container').innerHTML += newSyllabus.renderSyllabusCard();
+
       	})
 	  })
 	  .catch(error => console.log(error)) //why was this erroring? 
@@ -48,26 +50,32 @@ function postSyllabus(title, description, image_url, category_id) {
 	  })
 	  .then(response => response.json())
 	  .then(syllabus => {
-	    console.log("new data: ", syllabus);
-	    const syllabusData = syllabus.data
-	    // render JSON response
-	   render(syllabusData)
+		console.log(syllabus)
+		const syllabusData = syllabus.data
+		//becuase of how it's nested 
+	  	let newSyllabus = new Syllabus(syllabusData, syllabusData.attributes)
+		document.querySelector('#syllabus-container').innerHTML += newSyllabus.renderSyllabusCard();
+
+	   //  console.log("new data: ", syllabus);
+	   //  const syllabusData = syllabus.data
+	   //  // render JSON response
+	   // render(syllabusData)
   	})
 	.catch(error => console.log(error))
 }
 
-function render(syllabus) {
-  const syllabusMarkup = `
-          <div data-id=${syllabus.attributes.id}>
-            <img src=${syllabus.attributes.image_url} height="200" width="250">
-            <h3>${syllabus.attributes.title}</h3>
-            <p>${syllabus.attributes.category.name}</p>
-            <button data-id=${syllabus.id}>edit</button>
-          </div>
-          <br><br>`;
+// function render(syllabus) {
+//   const syllabusMarkup = `
+//           <div data-id=${syllabus.attributes.id}>
+//             <img src=${syllabus.attributes.image_url} height="200" width="250">
+//             <h3>${syllabus.attributes.title}</h3>
+//             <p>${syllabus.attributes.category.name}</p>
+//             <button data-id=${syllabus.id}>edit</button>
+//           </div>
+//           <br><br>`;
 
-  document.querySelector('#syllabus-container').innerHTML += syllabusMarkup;
-}
+//   document.querySelector('#syllabus-container').innerHTML += syllabusMarkup;
+// }
 // get the data, then get access into the data 
 // catch get the errors from the controller 
 //can refactor the markup code into a render function 
