@@ -7,6 +7,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	const createSyllabusForm = document.querySelector("#create-syllabus-form")
 	createSyllabusForm.addEventListener("submit", (e) => createFormHandler(e))  // grab th einputs with e so that below, you can parse them to send 
+	
+	const loginForm = document.querySelector("#login-form")
+	loginForm.addEventListener("submit", (e) => loginFormHandler(e))  
 })
 
 function getSyllabi() {
@@ -62,7 +65,35 @@ function postSyllabus(title, description, image_url, category_id) {
 	   // render(syllabusData)
   	})
 	.catch(error => console.log(error))
-}
+ }
+
+ function loginFormHandler(e) {
+ 	e.preventDefault()
+ 	console.log(e)
+ 	const emailInput = e.target.querySelector('#login-email').value
+ 	const pwInput = e.target.querySelector('#login-password').value
+ 	loginFetch(emailInput, pwInput)
+ }
+
+
+// because destructirng: pass in the rails db params words
+// in the args, exactly as they are there. 
+// alos, because strong params: have to uncludes {user: first , not just the data ) }
+ function loginFetch(email, password){
+ 	const bodyData = {user: {email, password} }
+ 	fetch("http://localhost:3000/api/v1/login", {
+ 		method: "POST",
+ 		headers: {"Content-Type": "application/json"},
+ 		body: JSON.stringify(bodyData)
+ 	})
+ 	.then(response => response.json())
+ 	.then(json => {
+ 		console.log("here")
+ 	})
+
+ }
+ 
+
 
 // function render(syllabus) {
 //   const syllabusMarkup = `
