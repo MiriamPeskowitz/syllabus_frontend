@@ -89,24 +89,26 @@ function postSyllabus(title, description, image_url, category_id) {
  	.then(response => response.json())
  	.then(json => {
  		console.log(json)
+ 		localStorage.setItem('jwt_token', json.jwt)
+ 		renderUserProfile()
  	})
 
  }
  
+function renderUserProfile() {
+	console.log("localStorage: ", localStorage.getItem('jwt_token') )
+	fetch('http://localhost3000/api/v1/profile',  {
+		method: 'GET',
+		headers: {
+			Authorization: `Bearer ${localStorage.getItem('jwt_token')}`
+		}
+	})
+	.then(response => response.json())
+	.then(json => {
+		alert("Welcome back, ${json.user.data.attributes.name}")
+	})
+}
 
-
-// function render(syllabus) {
-//   const syllabusMarkup = `
-//           <div data-id=${syllabus.attributes.id}>
-//             <img src=${syllabus.attributes.image_url} height="200" width="250">
-//             <h3>${syllabus.attributes.title}</h3>
-//             <p>${syllabus.attributes.category.name}</p>
-//             <button data-id=${syllabus.id}>edit</button>
-//           </div>
-//           <br><br>`;
-
-//   document.querySelector('#syllabus-container').innerHTML += syllabusMarkup;
-// }
 // get the data, then get access into the data 
 // catch get the errors from the controller 
 //can refactor the markup code into a render function 
