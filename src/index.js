@@ -17,7 +17,7 @@ function getSyllabi() {
 	  .then(response => response.json())
 	  .then(syllabi => {
 	  	syllabi.data.forEach(syllabus => {
-
+			console.log("syllabuses :", syllabi)
 	  		let newSyllabus = new Syllabus(syllabus, syllabus.attributes)
 	 		// render(newSyllabus)
 	 		document.querySelector('#syllabus-container').innerHTML += newSyllabus.renderSyllabusCard();
@@ -69,7 +69,7 @@ function postSyllabus(title, description, image_url, category_id) {
 
  function loginFormHandler(e) {
  	e.preventDefault()
- 	console.log(e)
+ 	console.log("e-data: ", e)
  	const emailInput = e.target.querySelector('#login-email').value
  	const pwInput = e.target.querySelector('#login-password').value
  	loginFetch(emailInput, pwInput)
@@ -88,7 +88,7 @@ function postSyllabus(title, description, image_url, category_id) {
  	})
  	.then(response => response.json())
  	.then(json => {
- 		console.log("here")
+ 		console.log(json)
  	})
 
  }
