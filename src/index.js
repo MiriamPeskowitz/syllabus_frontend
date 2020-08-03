@@ -96,14 +96,16 @@ function postSyllabus(title, description, image_url, category_id) {
  }
  
 function renderUserProfile() {
+	console.log('here')
 	console.log("localStorage: ", localStorage.getItem('jwt_token') )
-	fetch('http://localhost3000/api/v1/profile',  {
+	fetch("http://localhost:3000/api/v1/profile",  {
 		method: 'GET',
 		headers: {
 			Authorization: `Bearer ${localStorage.getItem('jwt_token')}`
 		}
 	})
 	.then(response => response.json())
+	.then(console.log('here'))
 	.then(json => {
 		alert("Welcome back, ${json.user.data.attributes.name}")
 	})
